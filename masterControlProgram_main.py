@@ -7,24 +7,36 @@
 
 from git.repo import Repo
 import os
+import shutil
 
 def userInterface():
     print("Master Control Program\n\n")
     print("1-Pull Current Staged Repo\n\n")
     choice = input("Please select>> ")
-    return choice
+    
+    if choice == str(1):
+        warning1 = input("***WARNING***, the current activeStage will be deleted, do you want to continue? y/n >> ")
+        if warning1.upper() == "Y":
+            return 1
+        else:
+            return 0
+    else:
+        pass
 
 def pullActiveRepo():
+    filePath = os.getcwd() 
+    
+    shutil.rmtree(filePath + "/activeStage")
     activeRepoFile = open('staged repo', 'r')
     activeRepo = activeRepoFile.read()
     activeRepoFile.close()
-    
-    filePath = os.getcwd()
 
     Repo.clone_from(activeRepo, filePath + "/activeStage/")
 
 def main():
     userChoice = userInterface()
-    if userChoice == "1":
+    if userChoice == 1:
         pullActiveRepo()
+    else:
+        print("\nAction aborted")
 main()
