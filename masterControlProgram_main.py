@@ -5,7 +5,7 @@
 #Python program to allow control of automated and user initiated actions on RPi
 #Initial set up controls work flow for managing python project
 
-from git.repo import Repo
+import git
 import os
 import shutil
 
@@ -31,24 +31,17 @@ def readActiveRepo():
     return activeRepo    
 
 def pullActiveRepo():
-    filePath = os.getcwd() 
-    
+    filePath = os.getcwd()
     shutil.rmtree(filePath + "/activeStage")
-    activeRepo = readActiveRepo()
-    Repo.clone_from(activeRepo, filePath + "/activeStage/")
+    os.mkdir(filePath + "/activeStage")
+    
+    repoToClone = readActiveRepo()
+    
+    #os.chdir(filePath + "/activeStage")
+    git.Repo.clone_from(repoToClone, filePath + "/activeStage")
 
 def pushActiveRepo():
-    
-    filePath = os.getcwd()
-    filePath = filePath + "/activeStage/"
-    
-    activeRepo = Repo(filePath)
-    activeRepo.git.add(update=True)
-    commitMessage = input("Please enter a commit message >>")
-    activeRepo.index.commit(commitMessage)
-    activeRepo.git.commit()
-    origin = activeRepo.remote(name='origin')
-    origin.push()
+    pass
 
 def main():
     userChoice = userInterface()
