@@ -2,7 +2,7 @@
 #simple manager script to ensure most upto date version of repository is being used and to upload changes at end of session
 
 staging_path="C/Learn_C_The_Hard_Way"
-current_git_token="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"
+current_git_token=""
 
 echo 'To start session type s'
 echo 'To end session type e'
