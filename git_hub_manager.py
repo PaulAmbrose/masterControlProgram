@@ -4,29 +4,38 @@ import sh
 import shutil
 import subprocess
 
+#https://medium.com/wealthy-bytes/the-easiest-way-to-use-a-python-virtual-environment-with-git-401e07c39cde
+
+filePath = os.getcwd()
+
 def readActiveRepo():
-    activeRepoFile = open('activeRepoFile.txt', 'r')
+    activeRepoFile = open(filePath +'/activeRepoFile.txt', 'r')
     activeRepo = activeRepoFile.read()
     activeRepoFile.close()
     return activeRepo
 
 def readActiveToken():
-    activeTokenFile = open('activeTokenFile.txt', 'r')
+    activeTokenFile = open(filePath +'/activeTokenFile.txt', 'r')
     activeToken = activeTokenFile.read()
     activeTokenFile.close()
     return activeToken
 
+
 def pullActiveRepo():
 
-    filePath = os.getcwd()
     shutil.rmtree(filePath + "/activeStage")
     os.mkdir(filePath + "/activeStage")
+    os.mkdir(filePath + "/activeStage/test-env")
+    os.chdir (filePath + "/activeStage/test-env")
 
     repoToClone = readActiveRepo()
     repoToClone_clean = repoToClone.replace("\n", "")
 
     # Clone the repository
-    repo = git.Repo.clone_from(repoToClone_clean, filePath + "/activeStage")
+    repo = git.Repo.clone_from(repoToClone_clean, filePath + "/activeStage/test-env")
+
+    subprocess.call(["python3", "-m", "venv", "env"])
+    subprocess.call(["echo", "'env'", ">", ".gitignore"])
 
     tokenForEnd = readActiveToken()
     print(tokenForEnd)
@@ -37,8 +46,9 @@ def pushActiveRepo():
 
     repoToPush = readActiveRepo
 
-    filePath = os.getcwd()
-    os.chdir(filePath + "/activeStage")
+    os.chdir(filePath + "/activeStage/test-env")
+
+    subprocess.call(["pip", "freeze", ">", "requirements.txt"])
 
     # Add all changes to the staging area
         #sh.git.add(".")
