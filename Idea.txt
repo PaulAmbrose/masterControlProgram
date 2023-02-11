@@ -1,0 +1,14 @@
+Extensible application for managing and automating activities on raspberry pi.
+
+Basic Requirements:
+  -I would like this to be designed and built in object orientated design
+  -It needs to be easily extensible and scalable
+  -It needs to have a gui
+ 
+Build steps:
+  >>Gui with buttons and text inputs to drive actions
+  >>Options 1) create a python project button, opens 2 text box to get project name and short project outline
+    >>Creates folder named for the project in virtual environments folder, 
+    >>Creates a staging area and initialises a git repository
+    >>Creates a test folder
+    >>Creates a log folder and text file.  Stamps with date, time and project outline
