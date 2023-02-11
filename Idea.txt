@@ -12,3 +12,4 @@ Build steps:
     >>Creates a staging area and initialises a git repository
     >>Creates a test folder
     >>Creates a log folder and text file.  Stamps with date, time and project outline
+    >>Creates a main.py file in the project folder and populates with python boilder plate
